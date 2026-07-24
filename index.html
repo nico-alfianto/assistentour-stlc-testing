@@ -8,7 +8,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.7; }
-        .container { max-width: 1000px; margin: auto; padding: 40px 20px; }
+        .container { max-width: 1100px; margin: auto; padding: 40px 20px; }
         
         header { text-align: center; padding: 40px 0; border-bottom: 1px solid #30363d; }
         header h1 { color: #58a6ff; font-size: 24px; margin-bottom: 10px; }
@@ -18,64 +18,91 @@
         .card h2 { color: #58a6ff; margin-bottom: 15px; font-size: 20px; border-left: 3px solid #58a6ff; padding-left: 10px; }
         .card h3 { color: #c9d1d9; margin: 15px 0 10px; font-size: 16px; }
         
-        .team-table, .result-table, .scope-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 15px; }
-        .team-table th, .team-table td, .result-table th, .result-table td, .scope-table th, .scope-table td { border: 1px solid #30363d; padding: 10px; text-align: left; }
-        .team-table th, .result-table th, .scope-table th { background: #21262d; color: #58a6ff; }
+        /* RESPONSIVE TABLE */
+        .table-wrapper { overflow-x: auto; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px; }
+        th, td { border: 1px solid #30363d; padding: 10px; text-align: left; vertical-align: top; }
+        th { background: #21262d; color: #58a6ff; white-space: nowrap; }
         
         .result-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center; }
         .metric { background: #21262d; padding: 15px; border-radius: 8px; }
         .metric .val { font-size: 24px; font-weight: bold; }
         .pass { color: #3fb950; } .fail { color: #f85149; }
 
-        .tag { display: inline-block; background: #21262d; padding: 5px 10px; border-radius: 15px; font-size: 12px; margin: 3px; }
-        .status-pass { color: #3fb950; } .status-fail { color: #f85149; }
+        .tag { display: inline-block; background: #21262d; padding: 6px 12px; border-radius: 15px; font-size: 12px; margin: 4px; }
+        .status-pass { color: #3fb950; font-weight: bold; } .status-fail { color: #f85149; font-weight: bold; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .tool-item { background: #21262d; padding: 12px; border-radius: 8px; }
+        .tool-item b { color: #58a6ff; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>ASSISTENTOUR WEBSITE TESTING REPORT USING SOFTWARE TESTING LIFE CYCLE (STLC)</h1>
-            <p class="uni">Information Systems | Universitas Bina Sarana Informatika | 2026</p>
+            <p class="uni">Information Systems | Universitas Bina Sarana Informatika | Bogor | May 18, 2026</p>
         </header>
 
         <div class="card">
             <h2>Project Team</h2>
-            <table class="team-table">
-                <thead><tr><th>No</th><th>NIM</th><th>Name</th><th>Position</th><th>Role</th></tr></thead>
-                <tbody>
-                    <tr><td>1</td><td>19240013</td><td>Nico Alfianto</td><td>Team Leader</td><td>Coordination & Final Report</td></tr>
-                    <tr><td>2</td><td>19240452</td><td>Muhammad Ikhsan Basuki</td><td>Member</td><td>Test Case Document</td></tr>
-                    <tr><td>3</td><td>19240228</td><td>Marcho Dominggus D. T</td><td>Member</td><td>Journal Research</td></tr>
-                    <tr><td>4</td><td>19240187</td><td>Awaludin Al Ayubi</td><td>Member</td><td>Website Testing Execution</td></tr>
-                    <tr><td>5</td><td>19240450</td><td>Nethar Balawan M. M</td><td>Member</td><td>PPT Creation</td></tr>
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>No</th><th>NIM</th><th>Name</th><th>Position</th><th>Role in Team</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>19240013</td><td>Nico Alfianto</td><td>Team Leader</td><td>Team coordination and final report writing</td></tr>
+                        <tr><td>2</td><td>19240452</td><td>Muhammad Ikhsan Basuki</td><td>Member</td><td>Test Case Document creation</td></tr>
+                        <tr><td>3</td><td>19240228</td><td>Marcho Dominggus D. T</td><td>Member</td><td>Literature review and journal research</td></tr>
+                        <tr><td>4</td><td>19240187</td><td>Awaludin Al Ayubi</td><td>Member</td><td>Website testing execution</td></tr>
+                        <tr><td>5</td><td>19240450</td><td>Nethar Balawan M. M</td><td>Member</td><td>Presentation and documentation</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="card">
-            <h2>Background</h2>
-            <p>The development of information technology has increased the need for reliable digital systems, especially in the tourism sector. Modern tourists rely on websites for destination information, location maps, and recommendations. To ensure optimal service, tourism websites must undergo systematic testing to ensure they are error-free and ready for use.</p>
-            <p>The Assistentour website was developed as a tourism information media. This project applies the Software Testing Life Cycle (STLC) method to ensure system quality before release.</p>
+            <h2>Testing Tools & Environment</h2>
+            <div class="tools-grid">
+                <div class="tool-item"><b><i class="fa-solid fa-robot"></i> Automation Tool:</b> Selenium WebDriver</div>
+                <div class="tool-item"><b><i class="fa-solid fa-browser"></i> Browsers:</b> Google Chrome, Mozilla Firefox</div>
+                <div class="tool-item"><b><i class="fa-solid fa-laptop"></i> Hardware:</b> Laptop/PC with Internet Connection</div>
+                <div class="tool-item"><b><i class="fa-solid fa-code"></i> Method:</b> Software Testing Life Cycle (STLC)</div>
+                <div class="tool-item"><b><i class="fa-solid fa-bug"></i> Bug Tracking:</b> Manual Documentation</div>
+                <div class="tool-item"><b><i class="fa-solid fa-calendar"></i> Duration:</b> 1-2 Weeks</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Background & Objectives</h2>
+            <p>The development of information technology has increased the need for reliable digital systems in tourism. The Assistentour website serves as an information and booking platform. To ensure quality, we applied the Software Testing Life Cycle (STLC) to validate all core features before release.</p>
+            <h3>Objectives:</h3>
+            <ul>
+                <li>Verify if all website features function correctly</li>
+                <li>Identify errors or bugs in the system</li>
+                <li>Ensure Login, Booking, Destination, Category, and User modules work as expected</li>
+                <li>Measure system success rate based on test case results</li>
+                <li>Provide recommendations for failed features</li>
+            </ul>
         </div>
 
         <div class="card">
             <h2>Testing Scope</h2>
             <div>
-                <span class="tag">Dashboard</span><span class="tag">Destinations</span><span class="tag">Booking</span>
-                <span class="tag">Booking Report</span><span class="tag">User Management</span><span class="tag">Category</span>
-                <span class="tag">Login/Logout</span><span class="tag">Dark Mode</span>
+                <span class="tag">Dashboard</span><span class="tag">Booking Status Chart</span><span class="tag">Latest Bookings</span>
+                <span class="tag">Destination CRUD</span><span class="tag">Booking Management</span><span class="tag">Booking Report Export</span>
+                <span class="tag">User Management</span><span class="tag">Category Management</span>
+                <span class="tag">Login/Logout</span><span class="tag">Dark Mode Toggle</span>
             </div>
         </div>
 
         <div class="card">
-            <h2>STLC Methodology</h2>
+            <h2>STLC Phases Applied</h2>
             <ol>
-                <li><b>Requirement Gathering:</b> Identify functional needs of Assistentour website</li>
-                <li><b>Test Planning:</b> Define strategy, schedule, and resources</li>
-                <li><b>Test Case Development:</b> Create test scenarios with Selenium</li>
-                <li><b>Test Environment Setup:</b> Chrome, Firefox, Selenium</li>
-                <li><b>Test Execution:</b> Run test cases and record results</li>
-                <li><b>Test Cycle Closure:</b> Evaluate results and bug analysis</li>
+                <li><b>Requirement Gathering:</b> Analyzed Assistentour website structure, user flows, and functional requirements.</li>
+                <li><b>Test Planning:</b> Defined scope, strategy, schedule, resources, and exit criteria.</li>
+                <li><b>Test Case Development:</b> Created 28 test cases with Test Steps, Input, Expected and Actual Results.</li>
+                <li><b>Test Environment Setup:</b> Configured Chrome, Firefox, and Selenium for execution.</li>
+                <li><b>Test Execution:</b> Ran all test cases using Selenium and documented results.</li>
+                <li><b>Test Cycle Closure:</b> Analyzed results, identified bugs, and prepared final report.</li>
             </ol>
         </div>
 
@@ -90,28 +117,46 @@
         </div>
 
         <div class="card">
-            <h2>Key Failed Test Cases</h2>
-            <table class="result-table">
-                <thead><tr><th>Test Case ID</th><th>Scenario</th><th>Status</th><th>Severity</th></tr></thead>
-                <tbody>
-                    <tr><td>TC-004b</td><td>Add Destination button not found</td><td class="status-fail">FAIL</td><td>High</td></tr>
-                    <tr><td>TC-006b</td><td>Export/Download button not available</td><td class="status-fail">FAIL</td><td>High</td></tr>
-                    <tr><td>TC-007b</td><td>Add User button not available</td><td class="status-fail">FAIL</td><td>High</td></tr>
-                    <tr><td>TC-008b</td><td>Add Category button not available</td><td class="status-fail">FAIL</td><td>High</td></tr>
-                    <tr><td>TC-008d</td><td>Edit Category button not working</td><td class="status-fail">FAIL</td><td>High</td></tr>
-                </tbody>
-            </table>
-            <p style="margin-top:15px;"><b>Conclusion:</b> Most core modules work well. However, several action buttons need to be fixed for optimal use.</p>
+            <h2>Detailed Test Case Results</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>Test Case ID</th><th>Test Scenario</th><th>Input Data</th><th>Expected Result</th><th>Actual Result</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>TC-003e</td><td>Booking status chart display</td><td>-</td><td>Chart is visible</td><td>Chart is visible</td><td class="status-pass">PASS</td></tr>
+                        <tr><td>TC-004b</td><td>Add Destination button</td><td>-</td><td>Button is visible and clickable</td><td>Button not found</td><td class="status-fail">FAIL</td></tr>
+                        <tr><td>TC-005a</td><td>Open Booking page</td><td>-</td><td>Booking page loads</td><td>Booking page loads</td><td class="status-pass">PASS</td></tr>
+                        <tr><td>TC-006b</td><td>Export/Download button</td><td>-</td><td>Button is available</td><td>Button not available</td><td class="status-fail">FAIL</td></tr>
+                        <tr><td>TC-007b</td><td>Add User button</td><td>-</td><td>Button is visible</td><td>Button not available</td><td class="status-fail">FAIL</td></tr>
+                        <tr><td>TC-008d</td><td>Edit Category button</td><td>-</td><td>Button works</td><td>Button not working</td><td class="status-fail">FAIL</td></tr>
+                        <tr><td>TC-009</td><td>Dark mode toggle</td><td>Click toggle</td><td>Theme changes</td><td>Theme changes</td><td class="status-pass">PASS</td></tr>
+                        <tr><td>TC-010</td><td>Login with invalid credentials</td><td>Wrong user/pass</td><td>Login fails</td><td>Login fails</td><td class="status-pass">PASS</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size:12px; color:#8b949e; margin-top:10px;">*Table is scrollable horizontally on mobile. Showing 8 of 28 test cases. Full document available on request.</p>
         </div>
 
         <div class="card">
-            <h2>Recommendations</h2>
-            <ul>
-                <li>Fix UI bugs on "Add" buttons for Destination, User, and Category modules.</li>
-                <li>Implement the Export/Download feature in the Booking Report module.</li>
-                <li>Perform regression testing after bug fixes.</li>
-            </ul>
+            <h2>Critical Bugs & Recommendations</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Module</th><th>Bug Description</th><th>Severity</th><th>Recommendation</th></tr></thead>
+                    <tbody>
+                        <tr><td>Destination</td><td>Add Destination button not displayed</td><td class="fail">High</td><td>Fix UI rendering and button event</td></tr>
+                        <tr><td>Report</td><td>Export/Download feature missing</td><td class="fail">High</td><td>Implement export to CSV/PDF</td></tr>
+                        <tr><td>User</td><td>Add User button not available</td><td class="fail">High</td><td>Add button and link to create user form</td></tr>
+                        <tr><td>Category</td><td>Add and Edit Category buttons not working</td><td class="fail">High</td><td>Debug javascript and API connection</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Conclusion</h2>
+            <p>Based on the STLC testing of the Assistentour website, 23 out of 28 test cases passed. Core modules such as Dashboard, Booking, Login, and Dark Mode function correctly. However, 5 high-severity bugs were found related to CRUD action buttons. We recommend fixing these issues and performing regression testing before production release.</p>
         </div>
     </div>
 </body>
-</html>
+                                                                                                                                       </html>
