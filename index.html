@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assistentour Backend Website Testing | STLC Report | Nico Alfianto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0B;--card:#131315;--card2:#1A1A1D;--border:#232326;--text:#F4F4F5;--muted:#A1A1AA;--muted2:#71717A;--pill:#1E1E21}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header{padding:48px 0 32px;border-bottom:1px solid var(--border)}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-bottom:16px}
+.eyebrow span{color:var(--text)}
+h1{font-size:42px;line-height:.95;letter-spacing:-.04em;font-weight:800}
+h1 em{font-style:normal;color:var(--muted)}
+.header-desc{max-width:560px;color:var(--muted);font-size:16px;margin-top:18px;line-height:1.7}
+.header-right{text-align:right}
+.header-right strong{display:block;font-size:15px}
+.header-right p{color:var(--muted);font-size:14px;margin-top:4px}
+.header-right .actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
+.btn-white{display:inline-block;background:#fff;color:#000;font-size:14px;font-weight:600;padding:11px 18px;border-radius:999px}
+.btn-outline{display:inline-block;background:transparent;color:#fff;border:1px solid #3F3F46;font-size:14px;font-weight:600;padding:11px 18px;border-radius:999px}
+main{padding:32px 0 80px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:20px}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p.sub{font-size:14px;color:var(--muted);margin-bottom:18px;line-height:1.7}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:20px}
+.kpi span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);font-weight:600}
+.kpi b{display:block;font-size:32px;letter-spacing:-.03em;margin:8px 0 4px}
+.kpi small{font-size:13px;color:var(--muted)}
+.kpi.fail b{color:#FCA5A5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.insight{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:16px;font-size:14px;line-height:1.7;color:var(--muted)}
+.insight b{color:#fff}
+.table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+.table th{text-align:left;padding:12px;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.table td{padding:12px;border-bottom:1px solid var(--border);line-height:1.6;vertical-align:top}
+.pg-steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px}
+.pg-step{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:16px}
+.pg-step span{font-size:12px;color:var(--muted2);font-weight:600;letter-spacing:.08em}
+.pg-step b{display:block;font-size:14px;margin:6px 0 4px}
+.pg-step p{font-size:13px;color:var(--muted);line-height:1.6}
+.pg-preset{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.pg-preset button{font-family:inherit;background:transparent;border:1px solid #3F3F46;color:var(--text);padding:9px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer}
+.pg-preset button.active{background:#fff;color:#000;border-color:#fff}
+.pg-grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;align-items:start}
+.pg-seg{display:flex;gap:8px;flex-wrap:wrap}
+.pg-seg button{font-family:inherit;background:transparent;border:1px solid var(--border);color:var(--muted);padding:9px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer}
+.pg-seg button.on{background:#fff;color:#000;border-color:#fff}
+.tc-list{display:flex;flex-direction:column;gap:8px;margin-top:14px;max-height:420px;overflow-y:auto}
+.tc-item{background:#0A0A0B;border:1px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;text-align:left;font-family:inherit;color:var(--text);width:100%}
+.tc-item.sel{border-color:#fff;background:#1A1A1D}
+.tc-item b{font-size:13px}
+.tc-item p{font-size:12px;color:var(--muted);margin-top:2px}
+.pg-big{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.pg-badge{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:999px;white-space:nowrap}
+.pg-badge.green{background:#052E16;color:#86EFAC;border:1px solid #166534}
+.pg-badge.red{background:#450A0A;color:#FCA5A5;border:1px solid #7F1D1D}
+.pg-bar{height:14px;background:#27272A;border-radius:999px;overflow:hidden;margin:18px 0 8px}
+#pgFill{height:100%;width:82%;background:#22C55E;transition:width .2s}
+.pg-contrib,.pg-action{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:16px;margin-top:12px}
+.pg-meta{margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;font-size:12px;color:var(--muted2);line-height:1.7}
+.pg-meta b{color:var(--text)}
+footer{border-top:1px solid var(--border);padding:28px 0 40px;color:var(--muted2);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:900px){h1{font-size:34px}.kpi-grid{grid-template-columns:1fr 1fr}.grid2,.pg-grid2,.pg-steps{grid-template-columns:1fr}.header-right{text-align:left}.header-right .actions{justify-content:flex-start}.pg-big{font-size:42px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="top"><div>
+<div class="eyebrow">QA & Software Testing <span>— STLC</span></div>
+<h1>Assistentour Backend<br><em>Website Testing Report</em></h1>
+<p class="header-desc">Applied Software Testing Life Cycle (STLC) with Selenium WebDriver to validate Assistentour tourism booking platform. 23 of 28 test cases passed. 5 high-severity bugs found in CRUD action buttons.</p>
+<p style="font-size:13px;color:var(--muted2);margin-top:12px;">Information Systems — Team Project</p>
+</div><div class="header-right"><strong>Nico Alfianto</strong><p>Bogor, Indonesia — Team Leader</p><div class="actions"><a class="btn-white" href="https://nico-myproject.github.io">Back to Portfolio</a><a class="btn-outline" href="#test-execution">Run Test Cases</a></div></div></div></div></header>
+<main class="wrap">
+<div class="kpi-grid" style="margin-bottom:20px;">
+<div class="kpi"><span>Total Test Cases</span><b>28</b><small>Across 6 modules</small></div>
+<div class="kpi"><span>Passed</span><b style="color:#86EFAC;">23</b><small>Core flows working</small></div>
+<div class="kpi fail"><span>Failed</span><b>5</b><small>All High severity</small></div>
+<div class="kpi"><span>Success Rate</span><b>82.1%</b><small>Not ready for production yet</small></div>
+</div>
+<div class="card"><h3>Background & Objectives</h3><p style="font-size:14px;color:var(--muted);line-height:1.8;">Assistentour serves as an information and booking platform for tourism. To ensure quality, we applied STLC to validate all core features before release. Objectives: verify all features function correctly, identify errors, ensure Login, Booking, Destination, Category, and User modules work as expected, measure success rate, and provide recommendations for failed features.</p></div>
+<!-- PLAYGROUND -->
+<div class="card" id="test-execution">
+<div class="eyebrow" style="margin-bottom:10px;">Interactive Playground <span>— STLC Test Execution Simulator</span></div>
+<h2 style="font-size:28px;">Test Case Explorer & Runner</h2>
+<p class="sub" style="max-width:720px;">Pick a test case on the left, click Run Test. See Expected vs Actual, Status, Severity, and the auto-generated Bug Report. This simulates what was executed with Selenium WebDriver during STLC Test Execution phase.</p>
+<div class="pg-steps">
+<div class="pg-step"><span>STEP 01</span><b>Filter by module</b><p>Focus on one module, or show only FAILED cases to see the bugs.</p></div>
+<div class="pg-step"><span>STEP 02</span><b>Pick a test case</b><p>Select a TC from the list. Each TC has steps, input, expected result.</p></div>
+<div class="pg-step"><span>STEP 03</span><b>Run & read bug report</b><p>Don't just see PASS / FAIL. Read severity and recommendation — that's what devs need.</p></div>
+</div>
+<div class="pg-preset" id="pgPreset">
+<button onclick="setFilterPG('all',this)" class="active">All Test Cases</button>
+<button onclick="setFilterPG('fail',this)">Failed Only (5)</button>
+<button onclick="setFilterPG('crud',this)">CRUD Bugs (4)</button>
+<button onclick="setFilterPG('pass',this)">Core Flow PASS</button>
+</div>
+<div class="pg-grid2">
+<div>
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);font-weight:600;">Test Cases — Click to Select</div>
+<div class="pg-seg" id="pgModule" style="margin-top:12px;">
+<button onclick="setModulePG('All',this)" class="on">All Modules</button>
+<button onclick="setModulePG('Destination',this)">Destination</button>
+<button onclick="setModulePG('Booking',this)">Booking</button>
+<button onclick="setModulePG('User',this)">User</button>
+<button onclick="setModulePG('Category',this)">Category</button>
+<button onclick="setModulePG('Auth',this)">Login / Auth</button>
+<button onclick="setModulePG('UI',this)">UI</button>
+</div>
+<div class="tc-list" id="tcList"></div>
+<div style="font-size:12px;color:var(--muted2);margin-top:10px;" id="tcCount"></div>
+</div>
+<div>
+<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);font-weight:600;">Execution Result</div>
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-top:10px;gap:12px;">
+<div><div class="pg-big" id="pgTC">TC-004b</div><div style="font-size:14px;color:var(--muted);margin-top:6px;" id="pgTitle">Add Destination button</div></div>
+<span class="pg-badge red" id="pgBadge">FAIL — HIGH</span>
+</div>
+<div class="pg-bar"><div id="pgFill"></div></div>
+<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted2);"><span>0% Success</span><span style="color:#fff;font-weight:600;">82.1% Overall Success Rate</span><span>100% Success</span></div>
+<div class="pg-contrib"><div style="font-size:13px;font-weight:700;margin-bottom:10px;">Test Execution Detail</div>
+<div style="font-size:13px;color:var(--muted);line-height:1.8;">
+<div><b style="color:#fff;">Module:</b> <span id="pgModuleOut">Destination</span> &nbsp;•&nbsp; <b style="color:#fff;">Input:</b> <span id="pgInput">—</span></div>
+<div style="margin-top:8px;"><b style="color:#fff;">Test Steps:</b><br><span id="pgSteps">1. Login as admin<br>2. Open Destination page<br>3. Look for Add Destination button</span></div>
+<div style="margin-top:8px;"><b style="color:#86EFAC;">Expected:</b> <span id="pgExpected">Button is visible and clickable</span></div>
+<div style="margin-top:4px;"><b style="color:#FCA5A5;">Actual:</b> <span id="pgActual">Button not found</span></div>
+</div></div>
+<div class="pg-action"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;">Bug Report + Recommendation</div><div id="pgAction" style="font-size:14px;line-height:1.7;color:var(--muted);margin-top:6px;">High severity. Fix UI rendering and button event. Add regression test for Destination CRUD before release.</div></div>
+<button onclick="runPG()" class="btn-white" style="margin-top:14px;border:none;cursor:pointer;font-family:inherit;">Run Test Again</button>
+</div>
+</div>
+<div class="pg-meta"><div><b>Method:</b> STLC — Test Execution Phase</div><div><b>Tool:</b> Selenium WebDriver + Chrome / Firefox</div><div><b>Duration:</b> 1-2 Weeks</div><div><b>Note:</b> 8 representative test cases shown in demo. Full 28 TCs in Test Case Document.</div></div>
+</div>
+
+<!-- STLC + TEAM + TOOLS -->
+<div class="grid2">
+<div class="card"><h3>STLC Phases Applied</h3><p class="sub">How testing was executed.</p><p style="font-size:14px;color:var(--muted);line-height:1.9;"><b style="color:#fff;">1. Requirement Gathering:</b> Analyzed Assistentour structure, user flows, functional requirements.<br><b style="color:#fff;">2. Test Planning:</b> Defined scope, strategy, schedule, resources, exit criteria.<br><b style="color:#fff;">3. Test Case Development:</b> Created 28 test cases with Steps, Input, Expected & Actual.<br><b style="color:#fff;">4. Environment Setup:</b> Configured Chrome, Firefox, Selenium.<br><b style="color:#fff;">5. Test Execution:</b> Ran all test cases, documented results.<br><b style="color:#fff;">6. Test Cycle Closure:</b> Analyzed results, identified bugs, prepared final report.</p></div>
+<div class="card"><h3>Testing Scope</h3><p class="sub">Modules covered.</p><div style="display:flex;flex-wrap:wrap;gap:8px;"><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Dashboard</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Booking Status Chart</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Latest Bookings</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Destination CRUD</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Booking Management</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Report Export</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">User Management</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Category Management</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Login / Logout</span><span style="background:var(--card2);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:13px;">Dark Mode Toggle</span></div><div class="insight" style="margin-top:14px;"><b>Key Pattern:</b> All 5 FAILs are in CRUD action buttons, not in core flows. Dashboard, Booking, Login, Dark Mode all PASS.</div></div>
+</div>
+
+<!-- DETAILED TABLE + BUGS -->
+<div class="card"><h3>Detailed Test Case Results — 8 Representative Cases</h3><p class="sub">Showing 8 of 28 test cases. Use Playground above to explore interactively. Full document available on request.</p>
+<table class="table"><tr><th>Test Case ID</th><th>Test Scenario</th><th>Expected Result</th><th>Actual Result</th><th>Status</th></tr>
+<tr><td>TC-003e</td><td>Booking status chart display</td><td>Chart is visible</td><td>Chart is visible</td><td style="color:#86EFAC;font-weight:700;">PASS</td></tr>
+<tr><td>TC-004b</td><td>Add Destination button</td><td>Button is visible and clickable</td><td>Button not found</td><td style="color:#FCA5A5;font-weight:700;">FAIL</td></tr>
+<tr><td>TC-005a</td><td>Open Booking page</td><td>Booking page loads</td><td>Booking page loads</td><td style="color:#86EFAC;font-weight:700;">PASS</td></tr>
+<tr><td>TC-006b</td><td>Export / Download button</td><td>Button is available</td><td>Button not available</td><td style="color:#FCA5A5;font-weight:700;">FAIL</td></tr>
+<tr><td>TC-007b</td><td>Add User button</td><td>Button is visible</td><td>Button not available</td><td style="color:#FCA5A5;font-weight:700;">FAIL</td></tr>
+<tr><td>TC-008d</td><td>Edit Category button</td><td>Button works</td><td>Button not working</td><td style="color:#FCA5A5;font-weight:700;">FAIL</td></tr>
+<tr><td>TC-009</td><td>Dark mode toggle</td><td>Theme changes</td><td>Theme changes</td><td style="color:#86EFAC;font-weight:700;">PASS</td></tr>
+<tr><td>TC-010</td><td>Login with invalid credentials</td><td>Login fails</td><td>Login fails</td><td style="color:#86EFAC;font-weight:700;">PASS</td></tr></table></div>
+
+<div class="card"><h3>Critical Bugs & Recommendations</h3><p class="sub">All bugs are High severity. Must be fixed before production release.</p>
+<table class="table"><tr><th>Module</th><th>Bug Description</th><th>Severity</th><th>Recommendation</th></tr>
+<tr><td>Destination</td><td>Add Destination button not displayed</td><td style="color:#FCA5A5;font-weight:700;">High</td><td>Fix UI rendering and button event</td></tr>
+<tr><td>Report</td><td>Export / Download feature missing</td><td style="color:#FCA5A5;font-weight:700;">High</td><td>Implement export to CSV / PDF</td></tr>
+<tr><td>User</td><td>Add User button not available</td><td style="color:#FCA5A5;font-weight:700;">High</td><td>Add button and link to create user form</td></tr>
+<tr><td>Category</td><td>Add and Edit Category buttons not working</td><td style="color:#FCA5A5;font-weight:700;">High</td><td>Debug JavaScript and API connection</td></tr></table>
+<div class="insight" style="margin-top:14px;"><b>Release Decision:</b> <span style="color:#FCA5A5;font-weight:700;">DO NOT RELEASE YET.</span> Fix 5 bugs, then run regression testing on all CRUD flows.</div></div>
+
+<div class="grid2">
+<div class="card"><h3>Project Team</h3><p class="sub">Roles during STLC execution.</p><table class="table"><tr><th>Name</th><th>Role</th></tr><tr><td>Nico Alfianto</td><td>Team Leader — Coordination & Final Report</td></tr><tr><td>Muhammad Ikhsan Basuki</td><td>Member — Test Case Document</td></tr><tr><td>Marcho Dominggus D. T</td><td>Member — Literature Review</td></tr><tr><td>Awaludin Al Ayubi</td><td>Member — Testing Execution</td></tr><tr><td>Nethar Balawan M. M</td><td>Member — Presentation & Documentation</td></tr></table></div>
+<div class="card"><h3>Testing Tools & Environment</h3><p class="sub">Stack used for execution.</p><p style="font-size:14px;color:var(--muted);line-height:1.9;"><b style="color:#fff;">Automation:</b> Selenium WebDriver<br><b style="color:#fff;">Browsers:</b> Google Chrome, Mozilla Firefox<br><b style="color:#fff;">Hardware:</b> Laptop / PC with Internet Connection<br><b style="color:#fff;">Method:</b> Software Testing Life Cycle (STLC)<br><b style="color:#fff;">Bug Tracking:</b> Manual Documentation<br><b style="color:#fff;">Duration:</b> 1-2 Weeks</p></div>
+</div>
+
+<div class="card"><h3>Conclusion</h3><p style="font-size:14px;color:var(--muted);line-height:1.8;">Based on STLC testing of Assistentour, 23 out of 28 test cases passed. Core modules such as Dashboard, Booking, Login, and Dark Mode function correctly. However, 5 high-severity bugs were found related to CRUD action buttons. We recommend fixing these issues and performing regression testing before production release.</p></div>
+
+</main>
+<footer><div class="wrap"><span>© 2026 Nico Alfianto — Assistentour Backend Website Testing. STLC Report</span><span><a href="https://nico-myproject.github.io">Portfolio</a></span></div></footer>
+<script>
+var TCS=[
+{id:'TC-003e',title:'Booking status chart display',mod:'Booking',input:'—',steps:'1. Login as admin<br>2. Open Dashboard<br>3. Check Booking Status Chart',exp:'Chart is visible',act:'Chart is visible',status:'PASS',sev:'—',rec:'No action needed. Chart renders correctly. Keep as regression check for Dashboard.'},
+{id:'TC-004b',title:'Add Destination button',mod:'Destination',input:'—',steps:'1. Login as admin<br>2. Open Destination page<br>3. Look for Add Destination button',exp:'Button is visible and clickable',act:'Button not found',status:'FAIL',sev:'High',rec:'High severity. Fix UI rendering and button event. Add regression test for Destination CRUD before release.'},
+{id:'TC-005a',title:'Open Booking page',mod:'Booking',input:'—',steps:'1. Login as admin<br>2. Click Booking menu<br>3. Verify page loads',exp:'Booking page loads',act:'Booking page loads',status:'PASS',sev:'—',rec:'No action needed. Booking page loads correctly.'},
+{id:'TC-006b',title:'Export / Download button',mod:'Booking',input:'—',steps:'1. Login as admin<br>2. Open Booking Report<br>3. Look for Export / Download button',exp:'Button is available',act:'Button not available',status:'FAIL',sev:'High',rec:'High severity. Implement export to CSV / PDF. Report without export blocks admin workflow.'},
+{id:'TC-007b',title:'Add User button',mod:'User',input:'—',steps:'1. Login as admin<br>2. Open User Management<br>3. Look for Add User button',exp:'Button is visible',act:'Button not available',status:'FAIL',sev:'High',rec:'High severity. Add button and link to create user form. User CRUD is incomplete without it.'},
+{id:'TC-008d',title:'Edit Category button',mod:'Category',input:'Click Edit on a category',steps:'1. Login as admin<br>2. Open Category Management<br>3. Click Edit Category button',exp:'Button works',act:'Button not working',status:'FAIL',sev:'High',rec:'High severity. Debug JavaScript and API connection for Category Edit. Check console errors.'},
+{id:'TC-009',title:'Dark mode toggle',mod:'UI',input:'Click toggle',steps:'1. Login<br>2. Click Dark Mode toggle<br>3. Verify theme changes',exp:'Theme changes',act:'Theme changes',status:'PASS',sev:'—',rec:'No action needed. Theme toggle works correctly.'},
+{id:'TC-010',title:'Login with invalid credentials',mod:'Auth',input:'Wrong user / pass',steps:'1. Open Login page<br>2. Enter wrong username / password<br>3. Click Login',exp:'Login fails',act:'Login fails',status:'PASS',sev:'—',rec:'No action needed. Negative login case correctly rejected. Good security behavior.'}
+];
+var curFilter='all', curModule='All', curTC=TCS[1];
+function filtered(){
+return TCS.filter(function(t){
+if(curModule!=='All'&&t.mod!==curModule)return false;
+if(curFilter==='fail'&&t.status!=='FAIL')return false;
+if(curFilter==='pass'&&t.status!=='PASS')return false;
+if(curFilter==='crud'&&!(t.id==='TC-004b'||t.id==='TC-007b'||t.id==='TC-008d'||t.id==='TC-006b'))return false;
+return true;
+});
+}
+function renderList(){
+var list=filtered();
+document.getElementById('tcList').innerHTML=list.map(function(t){
+var col=t.status==='PASS'?'#86EFAC':'#FCA5A5';
+return '<button class="tc-item '+(t.id===curTC.id?'sel':'')+'" onclick="selectTC(\''+t.id+'\')"><div style="display:flex;justify-content:space-between;"><b>'+t.id+'</b><span style="font-size:11px;font-weight:700;color:'+col+';">'+t.status+'</span></div><p>'+t.title+' • '+t.mod+'</p></button>';
+}).join('');
+document.getElementById('tcCount').textContent='Showing '+list.length+' test cases • 82.1% overall success rate (23/28 PASS)';
+}
+function selectTC(id){var f=TCS.filter(function(t){return t.id===id;});if(f.length)curTC=f[0];showTC();renderList();}
+function showTC(){
+document.getElementById('pgTC').textContent=curTC.id;
+document.getElementById('pgTitle').textContent=curTC.title;
+document.getElementById('pgModuleOut').textContent=curTC.mod;
+document.getElementById('pgInput').textContent=curTC.input;
+document.getElementById('pgSteps').innerHTML=curTC.steps;
+document.getElementById('pgExpected').textContent=curTC.exp;
+document.getElementById('pgActual').textContent=curTC.act;
+document.getElementById('pgAction').textContent=curTC.rec;
+var b=document.getElementById('pgBadge');
+if(curTC.status==='PASS'){b.textContent='PASS';b.className='pg-badge green';document.getElementById('pgFill').style.background='#22C55E';}
+else{b.textContent='FAIL — '+curTC.sev.toUpperCase();b.className='pg-badge red';document.getElementById('pgFill').style.background='#EF4444';}
+document.getElementById('pgFill').style.width='82%';
+}
+function runPG(){showTC();}
+function setFilterPG(f,btn){curFilter=f;var btns=document.querySelectorAll('#pgPreset button');for(var i=0;i<btns.length;i++)btns[i].classList.remove('active');if(btn)btn.classList.add('active');renderList();}
+function setModulePG(m,btn){curModule=m;var btns=document.querySelectorAll('#pgModule button');for(var i=0;i<btns.length;i++)btns[i].classList.remove('on');if(btn)btn.classList.add('on');renderList();}
+renderList();showTC();
+</script>
+</body>
+  </html>
